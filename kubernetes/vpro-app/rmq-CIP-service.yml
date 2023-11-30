@@ -8,5 +8,5 @@ spec:
     targetPort: vpromq01-port
     protocol: TCP
   selector:
-    app: vpromq01
+    app: vpromq01 # ligne 15
   type: ClusterIP
