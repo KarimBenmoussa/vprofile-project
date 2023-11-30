@@ -30,12 +30,12 @@ spec:
                name: app-secret # kube-app/kubernetes/vpro-app/app-secret.yml ligne 4
                key: db-pass # kube-app/kubernetes/vpro-app/app-secret.yml ligne 7
       nodeSelector:
-        zone: us-east-1a
+        zone: us-east-1a #va run dans ce node
       volumes:
         - name: vpro-db-data
           # This AWS EBS volume must already exist.
           awsElasticBlockStore:
-             volumeID: MentiondVoumeID # obtient qd on crée EBS
+             volumeID: MentiondVoumeID # obtient qd on crée EBS et s'assurer que le node sélectionné (us-east-1a) soit dans la même zone que l'EBS
              fsType: ext4
 
       initContainers: # 2eme conteneur qui va s'exceuter en 1er pour supprimer lost and found avant que vprodb démarre pour que ça marche
