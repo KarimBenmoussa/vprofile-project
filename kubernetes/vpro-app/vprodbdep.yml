@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: vprodb
   labels:
-    app: vprodb
+    app: vprodb # utile pour la definition du service de type ClusterIP, le service va route les requetes aux pods ayant ce label
 spec:
   selector:
     matchLabels:
@@ -16,10 +16,7 @@ spec:
     spec:
       containers:
       - name: vprodb
-        image: vprofile/vprofiledb
-          #args:
-          #- "--ignore-db-dir"
-          #- "lost+found"
+        image: vprofile/vprofiledb:V1 # depuis le docker hub
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: vpro-db-data
@@ -30,20 +27,20 @@ spec:
          - name: MYSQL_ROOT_PASSWORD
            valueFrom:
              secretKeyRef:
-               name: app-secret
-               key: db-pass
+               name: app-secret # kube-app/kubernetes/vpro-app/app-secret.yml ligne 4
+               key: db-pass # kube-app/kubernetes/vpro-app/app-secret.yml ligne 7
       nodeSelector:
         zone: us-east-1a
       volumes:
         - name: vpro-db-data
           # This AWS EBS volume must already exist.
           awsElasticBlockStore:
-             volumeID: MentiondVoumeID
+             volumeID: MentiondVoumeID # obtient qd on crée EBS
              fsType: ext4
 
-      initContainers:
+      initContainers: # 2eme conteneur qui va s'exceuter en 1er pour supprimer lost and found avant que vprodb démarre pour que ça marche
         - name: busybox
-          image: busybox:latest
+          image: busybox:latest # juste pour monter le même volume
           args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
           volumeMounts:
             - name: vpro-db-data
