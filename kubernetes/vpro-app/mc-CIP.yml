@@ -8,5 +8,5 @@ spec:
     targetPort: vpromc-port
     protocol: TCP
   selector:
-    app: vpromc # kubernetes/vpro-app/mcdep.yml ligne 6
+    app: vpromc # kubernetes/vpro-app/mcdep.yml ligne 15
   type: ClusterIP
