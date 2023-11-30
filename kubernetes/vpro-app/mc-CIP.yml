@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: vprocache01
 spec:
-  ports:
+  ports: # map avec backend et conteneur
   - port: 11211 #src/main/resources/application.properties ligne 10
     targetPort: vpromc-port
     protocol: TCP
