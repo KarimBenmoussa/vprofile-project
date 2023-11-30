@@ -24,4 +24,5 @@
 15) Répéter l'opération pour le pod Application web à déployé -> mcdep.yaml 9) 10) 11) et 12) vproappdep.yml
 16) On peut tester l'IP de Load Balancer en exécutant kubectl get svc
 17) Possible de définir notre @Ip avec route 53
+18) Possible de tous supprimer via kubetcl delete -f, kubectl delete cluster
 
